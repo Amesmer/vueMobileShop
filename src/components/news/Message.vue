@@ -95,6 +95,7 @@ export default {
 <style lang="less" scoped>
 .Messagebox {
   padding: 10px;
+  margin-bottom:65px;
 }
 .swipe {
   border: 1px solid #ccc;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="NewTop">
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="没有更多了">
         <van-cell v-for="img in imageList" :key="img.id" @click="van_cell_click(img.id)">
@@ -76,6 +76,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.NewTop{
+  margin-bottom:65px;
+}
 .van-list {
   display: flex;
   flex-wrap: wrap;
