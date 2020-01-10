@@ -1,17 +1,6 @@
 import Vue from 'vue'
 
-import { Button } from 'vant'
-import { Search } from 'vant'
-import { Toast } from 'vant'
-import { Icon } from 'vant'
-import { Divider } from 'vant'
-import { SwipeCell } from 'vant'
-import { Cell } from 'vant'
-import { Tag } from 'vant'
-import { SubmitBar } from 'vant';
-import { PullRefresh } from 'vant';
-import { Card } from 'vant';
-import { Stepper } from 'vant';
+import { Button, PullRefresh, Toast, List, Cell, Stepper, NavBar, Tabbar, TabbarItem, Swipe, SwipeItem, Grid, GridItem, Icon, Lazyload, Image ,Card,SubmitBar ,Tag ,SwipeCell,Divider  } from 'vant'
 
 Vue.use(Stepper);
 Vue.use(Card);
@@ -24,5 +13,18 @@ Vue.use(Divider)
 Vue.use(Icon)
 Vue.use(Toast)
 Vue.use(Button)
-Vue.use(Search)
-
+Vue.use(PullRefresh)
+Vue.use(Toast);
+Vue.use(List);
+Vue.use(Cell);
+Vue.use(Lazyload);
+Vue.use(Swipe);
+Vue.use(SwipeItem);
+Vue.use(Stepper);
+Vue.use(NavBar)
+Vue.use(Tabbar)
+Vue.use(TabbarItem)
+Vue.use(Grid)
+Vue.use(GridItem)
+Vue.use(Icon)
+Vue.use(Image)

@@ -8,18 +8,18 @@
     </div>
     <!-- 购物车 -->
     <div>
-      <van-pull-refresh @refresh="onRefresh">
-        <van-swipe-cell>
+      <van-pull-refresh @refresh="onRefresh" >
+        <van-swipe-cell v-for="(item,i) in jjjj" :key="i"  >
           <!-- 商品信息 -->
           <van-card
-            :num="value"
+            :num="itemval"
             price="2.00"
             desc="描述信息"
             title="商品标题"
             thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
           >
             <div slot="footer">
-              <van-stepper v-model="value" />
+              <van-stepper v-model="item.count" />
             </div>
           </van-card>
 
@@ -40,7 +40,7 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-        value:1,
+        itemval:1,
         // 购物车中货物
       carList: [],
     //   是否是空购物车
@@ -76,7 +76,7 @@ export default {
   },
   computed: {
     //   total: function(){},
-    ...mapState([''])
+    ...mapState(['jjjj'])
   }
 
 }
