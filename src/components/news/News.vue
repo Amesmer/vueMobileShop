@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       queryInfo: {
-        number: 1
+        number: 1,
+        num2:2
       },
       NewList: [],
       //   下拉刷新
@@ -46,10 +47,11 @@ export default {
   methods: {
     async NewListData() {
       const { data: res } = await this.$http.get(`/api/getgoods?pageindex=` + this.queryInfo.number)
-      console.log(res)
-      console.log(res.message)
+      const { data: ter} = await this.$http.get(`/api/getgoods?pageindex=` + this.queryInfo.num2)
+      console.log(ter)
+      console.log(ter.message)
       this.NewList = res.message
-      this.imageList = res.message
+      this.imageList = res.message.concat(ter.message)
     },
     // 下拉刷新
     onRefresh() {
