@@ -28,7 +28,6 @@ export default {
   methods: {
     onClickLeft(){
       this.$router.go(-1)
-       console.log(this.$router);
     },
    
     onChange(index) {
@@ -37,11 +36,12 @@ export default {
       
     },
 
+    
     //点击首页
     toHome() {
       this.$router.push('/home')
-      this.arrow=false
-      this.back = ''
+      // this.arrow=false
+      // this.back = ''
     },
     toContact() {
       this.$router.push('/member')
@@ -52,7 +52,22 @@ export default {
     toSearch() {
       this.$router.push('/search')
     }
-  }
+  },
+
+  //在watch里监听返回按钮的显示和隐藏
+    watch:{
+      "$route.path":function(newVal){
+        if(newVal==='/home'){
+          this.arrow=false
+          this.back=''
+        }else{
+          this.arrow=true
+          this.back='返回'
+        }
+      }
+      
+    },
+
 }
 </script>
 
@@ -64,9 +79,11 @@ export default {
   color: #fff;
 }
 .van-nav-bar__text {
+  background-color: #1989fa;
   color: #fff;
 }
 .van-icon::before {
   color: #fff;
 }
+
 </style>

@@ -11,9 +11,9 @@ import shopcar from '../components/shoppingcar/ShoppingCar.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  // { path: '/', redirect: '/home' },
-  // {path: '/home',component: index},
-  {path: '/',component: index},
+  { path: '/', redirect: '/home' },
+  {path: '/home',component: index},
+  //{path: '/',component: index},
   {path:'/message',component:Message},
   {path:'/Order',component:Order},
   {path:'/Taste',component:Taste},
