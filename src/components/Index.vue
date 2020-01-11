@@ -9,7 +9,7 @@
 
     <!-- 六宫格 -->
     <van-grid :border="false" :column-num="3">
-      <van-grid-item to="/newslist">
+      <van-grid-item to="/information">
         <img src="../assets/pics/menu1.png" />
         <span>新闻资讯</span>
       </van-grid-item>

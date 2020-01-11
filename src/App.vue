@@ -10,16 +10,16 @@
     <!-- <span @click="onBack" v-show="isShow" >返回</span> -->
     <router-view />
     <!-- 底部导航区域 -->
-    <van-tabbar v-model="active" @change="onChange">
-      <van-tabbar-item icon="wap-home" @click="toHome" name="home">首页</van-tabbar-item>
-      <van-tabbar-item icon="contact" @click="toContact" name="contact">会员</van-tabbar-item>
+    <van-tabbar v-model="active" route>
+      <van-tabbar-item icon="wap-home" to="/home" name="home">首页</van-tabbar-item>
+      <van-tabbar-item icon="contact" to="/member" name="contact">会员</van-tabbar-item>
       <van-tabbar-item
         icon="cart-o"
-        @click="toCart"
+        to="/shopcar"
         name="cart"
         :info="this.$store.state.shopcarsize"
       >购物车</van-tabbar-item>
-      <van-tabbar-item icon="search" @click="toSearch" name="search">搜索</van-tabbar-item>
+      <van-tabbar-item icon="search" to="/search" name="search">搜索</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -40,26 +40,6 @@ export default {
   methods: {
     onClickLeft() {
       this.$router.go(-1)
-    },
-
-    onChange(index) {
-      Notify({ type: 'primary', message: index })
-    },
-
-    //点击首页
-    toHome() {
-      this.$router.push('/home')
-      // this.arrow=false
-      // this.back = ''
-    },
-    toContact() {
-      this.$router.push('/member')
-    },
-    toCart() {
-      this.$router.push('/shopcar')
-    },
-    toSearch() {
-      this.$router.push('/search')
     }
   },
 

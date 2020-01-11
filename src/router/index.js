@@ -8,22 +8,34 @@ import Taste from '../components/news/Taste.vue'
 import index from '../components/Index.vue'
 import search from '../components/Search/search.vue'
 import shopcar from '../components/shoppingcar/ShoppingCar.vue'
+import Detail from '../components/Journalism/Detail.vue'
+import Information from '../components/Journalism/Information.vue'
+import Add from '../components/photos/Add.vue'
+import Photo from '../components/photos/Photo.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', redirect: '/home' },
-  {path: '/home',component: index},
-  //{path: '/',component: index},
-  {path:'/message',component:Message},
-  {path:'/Order',component:Order},
-  {path:'/Taste',component:Taste},
-  {path:'/newslist',component: News},
-  {path:'/shopcar',component: shopcar},
-  {path:'/search',component: search}
+    { path: '/', redirect: '/home' },
+    { path: '/home', component: index },
+    //{path: '/',component: index},
+    { path: '/message', component: Message },
+    { path: '/Order', component: Order },
+    { path: '/Taste', component: Taste },
+    { path: '/newslist', component: News },
+    { path: '/shopcar', component: shopcar },
+    { path: '/search', component: search },
+    { path: '/detail', component: Detail },
+    { path: '/photo/list', component: Photo },
+    { path: '/photo/info/:id', component: Add },
+    {
+        path: '/information',
+        component: Information,
+    }
+
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router
