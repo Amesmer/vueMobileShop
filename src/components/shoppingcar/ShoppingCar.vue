@@ -8,77 +8,127 @@
     </div>
     <!-- 购物车 -->
     <div>
-      <van-pull-refresh @refresh="onRefresh" >
-        <van-swipe-cell v-for="(item,i) in jjjj" :key="i"  >
-          <!-- 商品信息 -->
+      <van-pull-refresh @refresh="onRefresh">
+        <van-swipe-cell v-for="(item,i) in carList" :key="i">
+          <!-- 商品信息    desc="描述信息" -->
           <van-card
-            :num="itemval"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
+            :num="item.cou"
+            :price="item.sell_price"
+            :title="item.title"
+            :thumb="item.thumb_path"
           >
             <div slot="footer">
-              <van-stepper v-model="item.count" />
+              <van-stepper v-model="item.cou" />
             </div>
           </van-card>
 
           <van-cell :border="false" />
           <!-- 右滑删除 -->
           <template slot="right" class="del_content">
-            <van-button square type="danger" text="删除" class="del_btn" />
+            <van-button
+              square
+              type="danger"
+              @click="delcarlistitem(item.id)"
+              text="删除"
+              class="del_btn"
+            />
           </template>
         </van-swipe-cell>
       </van-pull-refresh>
     </div>
     <!-- 提交订单 -->
-    <van-submit-bar :price="3050" square button-text="提交订单" @submit="onSubmit" />
+    <van-submit-bar :price="total" square button-text="提交订单" @submit="onSubmit" />
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-        itemval:1,
-        // 购物车中货物
+      itemval: 1,
+      // 购物车中货物
       carList: [],
-    //   是否是空购物车
+      //   是否是空购物车
       isempty: true,
-    //   总数
-      total: 0,
-      goods: {"id":'',"count":1,"price":5780}
+      goods: { id: '', count: 1, price: 5780 }
     }
   },
   created() {
     this.getstorecarList()
+    this.loadData()
+    // this.setcarlist()
+   
+  },
+  updated() {
+    this.setcarlist()
   },
   methods: {
+    ...mapMutations(['clear']),
+    // 删除购物车中的项目
+    delcarlistitem(id) {
+      var index = this.carList.findIndex(val => {
+        val.id == id
+      })
+      this.carList.splice(index, 1)
+      // localstorage也要改变
+      this.setcarlist()
+    },
+    // 购物车数据储存到本地
+    setcarlist() {
+      localStorage.removeItem('carlist')
+      if(this.carList.length>0){
+        localStorage.setItem('carlist',JSON.stringify(this.carList))
+      }
+      
+    },
     // 获取购物车中的商品
     getstorecarList() {
-      if (localStorage.getItem('car') !== null) {
-          console.log( JSON.parse(localStorage.getItem('car')));
-          
-        return (this.carList = JSON.parse(localStorage.getItem('car')))
+      if (localStorage.getItem('carlist') !== null) {
+        // console.log(JSON.parse(localStorage.getItem('carlist')))
+        this.isempty = false
+        return (this.carList = JSON.parse(localStorage.getItem('carlist')))
       }
-      this.isempty = false
+      //   判断是是否是空的购物车
+      this.isempty = true
     },
     // 下拉刷新
     onRefresh() {},
     async loadData() {
-        // 根据id获取购物车中货物详细信息
-      const res = await this.$http.get('api/goods/getshopcarlist/' + ids)
+      // 根据id获取购物车中货物详细信息
+      const { data: data } = await this.$http.get('api/goods/getshopcarlist/' + this.ids.join(','))
+      console.log(data.message)
+      this.carList = data.message
+      //   将获id值对应的数量循环到列表中
+      this.jjjj.forEach(list => {
+        this.carList.forEach(item => {
+          if (list.id == item.id) {
+            item.cou += list.count
+          }
+        })
+      })
+      console.log(this.carList)
+      // 清除本次请求的参数
+      this.clear()
+      // 保存到本地
+       this.setcarlist()
+
     },
     //   提交订单
-  onSubmit() {
-
-  }
+    onSubmit() {}
   },
   computed: {
     //   total: function(){},
-    ...mapState(['jjjj'])
+    ...mapState(['jjjj', 'ids']),
+    total: function() {
+      // 计算商品的总价
+      var t = 0
+      this.carList.forEach(item => {
+        t += item.sell_price * item.cou
+      })
+      return t * 100
+    }
   }
-
 }
 </script>
 
