@@ -31,7 +31,7 @@
           <div class="title">
             <span v-text="`第${index + 1}楼`"></span>
             <span v-text="`用户：${item.user_name}`"></span>
-            <span>发表时间：{{item.add_time | dateFormat('yyyy-MM-dd')}}</span>
+            <span>发表时间：{{item.add_time | dataFormat('yyyy-MM-dd')}}</span>
           </div>
           <div class="body" v-text="item.content"></div>
        

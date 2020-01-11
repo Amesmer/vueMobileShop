@@ -1,32 +1,37 @@
 import Vue from 'vue'
 
-import { Button } from 'vant'
-import { Tab, Tabs } from 'vant';
-import { Uploader } from 'vant';
-import { Image } from 'vant';
-import { Lazyload } from 'vant';
-import { Loading } from 'vant';
-import { ImagePreview } from 'vant';
-import { Field } from 'vant';
-import { CellGroup } from 'vant';
-import { Notify } from 'vant';
+import { Button, PullRefresh, Toast, List, Cell, Stepper, NavBar, Tabbar, TabbarItem, Swipe, SwipeItem, Grid, GridItem, Icon, Lazyload, Image, Card, SubmitBar, Tag, SwipeCell, Divider, Search ,CellGroup,Field
+,Tab,Tabs,Loading} from 'vant'
 
-Vue.use(Notify);
-
-
-Vue.use(Field);
-Vue.use(CellGroup);
-
-Vue.use(ImagePreview);
-
-// options 为可选参数，无则不传
-Vue.use(Lazyload);
-Vue.use(Loading);
-
-Vue.use(Image);
-
-Vue.use(Uploader);
-
-Vue.use(Tab).use(Tabs);
-
+Vue.use(Stepper);
+Vue.use(Card);
+Vue.use(PullRefresh);
+Vue.use(SubmitBar);
+Vue.use(Tag)
+Vue.use(Cell)
+Vue.use(SwipeCell)
+Vue.use(Divider)
+Vue.use(Icon)
+Vue.use(Toast)
 Vue.use(Button)
+Vue.use(PullRefresh)
+Vue.use(Toast);
+Vue.use(List);
+Vue.use(Cell);
+Vue.use(Lazyload);
+Vue.use(Swipe);
+Vue.use(SwipeItem);
+Vue.use(Stepper);
+Vue.use(NavBar)
+Vue.use(Tabbar)
+Vue.use(TabbarItem)
+Vue.use(Grid)
+Vue.use(GridItem)
+Vue.use(Icon)
+Vue.use(Image)
+Vue.use(Search)
+Vue.use(CellGroup)
+Vue.use(Field)
+Vue.use(Tab)
+Vue.use(Tabs)
+Vue.use(Loading)
