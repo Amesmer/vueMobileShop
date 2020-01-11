@@ -63,6 +63,7 @@ export default {
   updated() {
     // 数据改变后修改
     this.setcarlist()
+    // 从新计算购物车中商品数量
     this.$store.commit('calshopcarsize')
   },
   methods: {

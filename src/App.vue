@@ -8,7 +8,10 @@
       @click-left="onClickLeft"
     />
     <!-- <span @click="onBack" v-show="isShow" >返回</span> -->
-    <router-view />
+    <div class="myrooterview">
+      <router-view />
+    </div>
+    
     <!-- 底部导航区域 -->
     <van-tabbar v-model="active" route>
       <van-tabbar-item icon="wap-home" to="/home" name="home">首页</van-tabbar-item>
@@ -60,6 +63,11 @@ export default {
 
 <style lang="less" scoped>
 .van-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  // margin-bottom: 60px;
   background-color: #1989fa;
 }
 .van-nav-bar__title {
@@ -71,5 +79,8 @@ export default {
 }
 .van-icon::before {
   color: #fff;
+}
+.myrooterview {
+  margin-top: 45px;
 }
 </style>
