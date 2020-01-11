@@ -4,11 +4,11 @@
     <div class="empty" v-if="isempty">
       <img src="../../assets/pics/cart_empty.png" alt />
       <p>购物车空空如也</p>
-      <van-button type="info" size="mini">去逛逛</van-button>
+      <van-button type="info" size="mini" @click="goaround">去逛逛</van-button>
     </div>
     <!-- 购物车 -->
     <div>
-      <van-pull-refresh @refresh="onRefresh">
+      <van-pull-refresh @refresh="onRefresh" v-model="isloading">
         <van-swipe-cell v-for="(item,i) in carList" :key="i">
           <!-- 商品信息    desc="描述信息" -->
           <van-card
@@ -46,6 +46,7 @@ import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
+      isloading: false,
       itemval: 1,
       // 购物车中货物
       carList: [],
@@ -58,7 +59,6 @@ export default {
     this.getstorecarList()
     this.loadData()
     // this.setcarlist()
-   
   },
   updated() {
     this.setcarlist()
@@ -73,17 +73,18 @@ export default {
       this.carList.splice(index, 1)
       // localstorage也要改变
       this.setcarlist()
+      this.getstorecarList()
     },
     // 购物车数据储存到本地
     setcarlist() {
       localStorage.removeItem('carlist')
-      if(this.carList.length>0){
-        localStorage.setItem('carlist',JSON.stringify(this.carList))
+      if (this.carList.length > 0) {
+        localStorage.setItem('carlist', JSON.stringify(this.carList))
       }
-      
     },
     // 获取购物车中的商品
     getstorecarList() {
+      this.carList = []
       if (localStorage.getItem('carlist') !== null) {
         // console.log(JSON.parse(localStorage.getItem('carlist')))
         this.isempty = false
@@ -93,35 +94,61 @@ export default {
       this.isempty = true
     },
     // 下拉刷新
-    onRefresh() {},
+    onRefresh() {
+      this.getstorecarList()
+      this.isloading = false
+    },
     async loadData() {
+      var templist = []
+      // 获取本地的数据
+      this.getstorecarList()
       // 根据id获取购物车中货物详细信息
-      const { data: data } = await this.$http.get('api/goods/getshopcarlist/' + this.ids.join(','))
-      console.log(data.message)
-      this.carList = data.message
-      //   将获id值对应的数量循环到列表中
+      if (this.ids.length > 0) {
+        const { data: data } = await this.$http.get('api/goods/getshopcarlist/' + this.ids.join(','))
+        // console.log(data.message)
+        var templist = data.message
+      }
+      //   本次添加的商品 按照id 修改对应的数量  得到和carlist对应结构的数据
       this.jjjj.forEach(list => {
-        this.carList.forEach(item => {
+        templist.forEach(item => {
           if (list.id == item.id) {
-            item.cou += list.count
+            item.cou += list.count - 1
           }
         })
       })
+
+      // carlist中如果存在则修改数量  如果不存在则添加进来
+      templist.forEach(item => {
+        var fff = 0
+        for (var i = 0; i < this.carList.length; i++) {
+          if (item.id == this.carList[i].id) {
+            this.carList[i].cou += item.cou
+            fff = 1
+          }
+        }
+        if (fff === 0) {
+          this.carList.push(item)
+        }
+      })
+      // carList 修改
       console.log(this.carList)
       // 清除本次请求的参数
       this.clear()
       // 保存到本地
-       this.setcarlist()
-
+      this.setcarlist()
+      this.getstorecarList()
     },
     //   提交订单
-    onSubmit() {}
+    onSubmit() {},
+    // 去逛逛
+    goaround() {
+      this.$router.push('/newslist')
+    }
   },
   computed: {
-    //   total: function(){},
     ...mapState(['jjjj', 'ids']),
+    // 计算商品的总价
     total: function() {
-      // 计算商品的总价
       var t = 0
       this.carList.forEach(item => {
         t += item.sell_price * item.cou
