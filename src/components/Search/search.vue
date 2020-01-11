@@ -18,7 +18,7 @@
       <div class="taglist">
         <van-divider
           v-show="havehistory"
-          :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+          :style="{ color: 'rgb(51, 51, 51)', borderColor: 'rgb(204, 204, 204)', padding: '0 16px' }"
         >暂无搜索历史</van-divider>
         <van-tag
           class="mytag"
