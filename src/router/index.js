@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import welcome from '../components/HelloWorld.vue'
+import Photo from '../components/photos/Photo.vue'
+import Add from '../components/photos/Add.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', redirect: '/home' },
+  { path: '/', redirect: '/home'},
   {
-    path: '/home',
-    component: welcome
-  }
+    path: '/photo/list',
+    component: Photo
+  },
+  { path: '/photo/info/:id',  component:Add },
 ]
 
 const router = new VueRouter({
