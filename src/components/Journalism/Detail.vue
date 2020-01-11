@@ -23,7 +23,7 @@
       <div class="a5">
         <span>第{{i+1}}楼</span>
         <span>用户名称:{{item.user_name}}</span>
-        <span>发表时间:{{item.add_time | dateFormat}}</span>
+        <span>发表时间:{{item.add_time | dataFormat}}</span>
       </div>
       <div class="a6">{{item.content}}</div>
     </div>
