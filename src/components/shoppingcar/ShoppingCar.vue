@@ -61,7 +61,9 @@ export default {
     // this.setcarlist()
   },
   updated() {
+    // 数据改变后修改
     this.setcarlist()
+    this.$store.commit('calshopcarsize')
   },
   methods: {
     ...mapMutations(['clear']),
