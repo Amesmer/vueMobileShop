@@ -7,7 +7,7 @@ import './plugins/vant.js'
 import axios from 'axios'
 
 //导入字体图标
-import font from './assets/font/iconfont'
+import './assets/font/iconfont.css'
 Vue.config.productionTip = false
 
 // 配置请求基地址

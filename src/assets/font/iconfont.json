@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "677608",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "721703",
+      "name": "用户",
+      "font_class": "ai-user",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "12704986",
+      "name": "用户名",
+      "font_class": "yonghuming",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "12723363",
+      "name": "首页",
+      "font_class": "qiepian",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    }
+  ]
+}
