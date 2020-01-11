@@ -14,6 +14,7 @@
       </div>
       <div class="tasteTop">{{item.content}}</div>
     </div>
+    <button class="btnsTaste" @click="btnsBox">加载更多</button>
   </div>
 </template>
 
@@ -22,7 +23,8 @@ export default {
   data() {
     return {
       TasteList: [],
-      constsdsd:''
+      constsdsd: '',
+      num: 1
     }
   },
   created() {
@@ -31,14 +33,26 @@ export default {
 
   methods: {
     async TasteListData() {
-      const { data: res } = await this.$http.get(`/api/getcomments/${this.$route.query.id}?pageindex=1`)
-      console.log(res)
-      this.TasteList = res.message
+      var temp = []
+      const { data: res } = await this.$http.get(`/api/getcomments/${this.$route.query.id}?pageindex=${this.num}`)
+      temp = res.message
+      console.log(this.TasteList)
+      if (this.TasteList.length > 0) {
+        temp.forEach(item => {
+          this.TasteList.push(item)
+        })
+      } else {
+        this.TasteList = temp
+      }
     },
-   async btnsContext() {
-      const { data: res } = await this.$http.post(`/api/postcomment/` + this.$route.query.id,this.constsdsd)
+    async btnsContext() {
+      const { data: res } = await this.$http.post(`/api/postcomment/` + this.$route.query.id, this.constsdsd)
       console.log(res)
-    //   this.TasteList.content=res.
+      //   this.TasteList.content=res.
+    },
+    btnsBox() {
+      this.num++
+      this.TasteListData()
     }
   }
 }
@@ -47,6 +61,7 @@ export default {
 <style lang="less" scoped>
 .Tast {
   padding: 0 5px;
+  margin-bottom: 65px;
 }
 
 .van-cell {
@@ -81,5 +96,12 @@ export default {
   font-size: 12px;
   text-indent: 2em;
   line-height: 35px;
+}
+.btnsTaste {
+  width: 100%;
+  height: 44px;
+  background-color: #fff;
+  border: 1px solid red;
+  color: red;
 }
 </style>

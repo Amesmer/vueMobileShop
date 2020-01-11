@@ -29,9 +29,7 @@ export default {
     return {
       queryInfo: {
         number: 1,
-        num2:2
       },
-      NewList: [],
       //   下拉刷新
       count: 0,
       isLoading: false,
@@ -46,12 +44,16 @@ export default {
   },
   methods: {
     async NewListData() {
+      var temp=[]
       const { data: res } = await this.$http.get(`/api/getgoods?pageindex=` + this.queryInfo.number)
-      const { data: ter} = await this.$http.get(`/api/getgoods?pageindex=` + this.queryInfo.num2)
-      console.log(ter)
-      console.log(ter.message)
-      this.NewList = res.message
-      this.imageList = res.message.concat(ter.message)
+      temp = res.message
+      if ( this.imageList.length > 0) {
+        temp.forEach(item => {
+           this.imageList.push(item)
+        })
+      } else {
+        this.imageList = res.message
+      }
     },
     // 下拉刷新
     onRefresh() {
@@ -62,24 +64,28 @@ export default {
       }, 500)
     },
     onLoad() {
-      // 加载状态结束
-      this.loading = false
-
-      // 数据全部加载完成
-      if (this.NewList.length >= 10) {
-        this.finished = true
-      }
+      // 异步更新数据
+      setTimeout(() => {
+        this.queryInfo.number++
+        this.NewListData()
+        // 加载状态结束
+        this.loading = false
+        // 数据全部加载完成
+        if (this.imageList.length >= 15) {
+          this.finished = true
+        }
+      }, 500)
     },
-    van_cell_click(id){
-        this.$router.push('/message?id='+id)
+    van_cell_click(id) {
+      this.$router.push('/message?id=' + id)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.NewTop{
-  margin-bottom:65px;
+.NewTop {
+  margin-bottom: 65px;
 }
 .van-list {
   display: flex;
@@ -126,6 +132,6 @@ export default {
 .huawei {
   font-size: 12px;
   padding: 4px 10px;
-  margin-bottom:50px;
+  margin-bottom: 50px;
 }
 </style>
